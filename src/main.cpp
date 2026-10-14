@@ -2,18 +2,29 @@
 #include "../include/token.hpp"
 #include "../include/types.hpp"
 
-#include <cstddef>
-#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <vector>
 
 int main() {
-    const std::string str = "10-5+1-  2";
-    std::vector<Token> tokens = tokenize(str);
-    const std::size_t len = tokens.size();
+    std::cout << "~~~ Yet another calculator ~~~\n";
+    std::cout << "type '/exit' to quit\n";
 
-    parser(tokens);
+    while (true) {
+        std::cout << "> ";
+
+        std::string str;
+        if (!std::getline(std::cin, str)) {
+            break;
+        }
+
+        if (str == "/exit") {
+            break;
+        }
+
+        std::vector<Token> tokens = tokenize(str);
+        parser(tokens);
+    }
 
     return 0;
 }

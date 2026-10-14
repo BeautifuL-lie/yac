@@ -15,13 +15,5 @@ int main() {
 
     parser(tokens);
 
-    // for (std::size_t i = 0; i < len; i++) {
-    //     if (tokens[i].m_type == TokenType::NUMBER) {
-    //         std::cout << "NUMBER(" << tokens[i].m_value << ")" << '\n';
-    //     } else {
-    //         std::cout << get_token_type(tokens[i].m_type) << '\n';
-    //     }
-    // }
-
     return 0;
 }

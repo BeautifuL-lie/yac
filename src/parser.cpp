@@ -1,3 +1,5 @@
+#include "../include/parser.hpp"
+
 #include "../include/class.hpp"
 #include "../include/types.hpp"
 

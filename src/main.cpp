@@ -1,3 +1,4 @@
+#include "../include/class.hpp"
 #include "../include/parser.hpp"
 #include "../include/token.hpp"
 #include "../include/types.hpp"
@@ -23,7 +24,18 @@ int main() {
         }
 
         std::vector<Token> tokens = tokenize(str);
-        parser(tokens);
+        if (tokens.empty()) {
+            std::cout << "Invalid expression!\n";
+            continue;
+        }
+
+        auto result = parser(tokens);
+        if (result == nullptr) {
+            std::cout << "Invalid expression!\n";
+            continue;
+        }
+
+        std::cout << "Result is " << result->evaluate() << '\n';
     }
 
     return 0;

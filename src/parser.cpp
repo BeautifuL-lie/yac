@@ -5,11 +5,10 @@
 
 #include <cstddef>
 #include <cstdlib>
-#include <iostream>
 #include <memory>
 #include <vector>
 
-void parser(const std::vector<Token> &tokens) {
+std::unique_ptr<Node> parser(const std::vector<Token> &tokens) {
     std::unique_ptr<Node> root = nullptr;
 
     const std::size_t len = tokens.size();
@@ -20,14 +19,12 @@ void parser(const std::vector<Token> &tokens) {
             }
         } else {
             if (i == 0) {
-                std::cout << "Invalid expression!\n";
-                std::exit(1);
+                return nullptr;
             }
 
             i++;
             if (i >= len) {
-                std::cout << "Invalid expression!\n";
-                std::exit(1);
+                return nullptr;
             }
 
             if (tokens[i - 1].m_type == TokenType::PLUS) {
@@ -41,6 +38,5 @@ void parser(const std::vector<Token> &tokens) {
             }
         }
     }
-
-    std::cout << "Result is " << root->evaluate() << '\n';
+    return root;
 }

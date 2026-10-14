@@ -1,5 +1,8 @@
+#pragma once
+
+#include "class.hpp"
 #include "types.hpp"
 
 #include <vector>
 
-void parser(const std::vector<Token> &tokens);
+std::unique_ptr<Node> parser(const std::vector<Token> &tokens);

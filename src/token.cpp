@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <vector>
 
 std::vector<Token> tokenize(const std::string &str) {
     std::vector<Token> tokens;
@@ -29,8 +30,7 @@ std::vector<Token> tokenize(const std::string &str) {
 
             tokens.push_back({TokenType::NUMBER, number});
         } else {
-            std::cout << "Invalid expression!\n";
-            std::exit(1);
+            return std::vector<Token>{};
         }
     }
     return tokens;

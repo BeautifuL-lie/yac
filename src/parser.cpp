@@ -27,6 +27,11 @@ std::unique_ptr<Node> parser(const std::vector<Token> &tokens) {
                 return nullptr;
             }
 
+            if (tokens[i].m_type == TokenType::PLUS ||
+                tokens[i].m_type == TokenType::MINUS) {
+                return nullptr;
+            }
+
             if (tokens[i - 1].m_type == TokenType::PLUS) {
                 root = std::make_unique<OperatorNode>(
                     '+', std::move(root),

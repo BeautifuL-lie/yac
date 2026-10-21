@@ -2,8 +2,22 @@
 
 #include "types.hpp"
 
+#include <cstddef>
+#include <optional>
 #include <string>
 #include <vector>
 
-std::vector<Token> tokenize(const std::string &str);
-std::string get_token_type(TokenType type);
+class Tokenizer {
+  public:
+    Tokenizer(std::string str);
+
+    std::vector<Token> tokenize();
+
+  private:
+    std::string m_str;
+    std::size_t m_len;
+    std::size_t m_index;
+
+    std::optional<char> peek(std::size_t offset = 0);
+    char consume();
+};

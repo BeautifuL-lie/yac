@@ -23,7 +23,9 @@ int main() {
             break;
         }
 
-        std::vector<Token> tokens = tokenize(str);
+        Tokenizer tokenizer(str);
+        std::vector<Token> tokens = tokenizer.tokenize();
+
         if (tokens.empty()) {
             std::cout << "Invalid expression!\n";
             continue;

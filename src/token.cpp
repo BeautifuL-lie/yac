@@ -1,33 +1,32 @@
 #include "../include/token.hpp"
 
-#include "../include/types.hpp"
+#include <cctype>
+#include <cstdlib>
+#include <utility>
 
-#include <iostream>
-#include <sstream>
-#include <vector>
+Tokenizer::Tokenizer(std::string str)
+    : m_str(std::move(str)), m_len(m_str.length()), m_index(0) {}
 
-std::vector<Token> tokenize(const std::string &str) {
+std::vector<Token> Tokenizer::tokenize() {
     std::vector<Token> tokens;
-    const std::size_t len = str.size();
-    for (std::size_t i = 0; i < len; i++) {
-        if (std::isspace(str[i])) {
-            continue;
-        } else if (str[i] == '+') {
+
+    while (auto current = peek()) {
+        char c = current.value();
+
+        if (std::isspace(c)) {
+            consume();
+        } else if (c == '+') {
             tokens.push_back({TokenType::PLUS});
-        } else if (str[i] == '-') {
+            consume();
+        } else if (c == '-') {
             tokens.push_back({TokenType::MINUS});
-        } else if (std::isdigit(str[i])) {
-            std::string tmp;
-            while (i < len && std::isdigit(str[i])) {
-                tmp.push_back(str[i]);
-                i++;
+            consume();
+        } else if (std::isdigit(c)) {
+            std::string buf;
+            while (peek().has_value() && std::isdigit(peek().value())) {
+                buf.push_back(consume());
             }
-            i--;
-
-            int number;
-            std::istringstream ss(tmp);
-            ss >> number;
-
+            int number = std::stoi(buf);
             tokens.push_back({TokenType::NUMBER, number});
         } else {
             return std::vector<Token>{};
@@ -36,14 +35,14 @@ std::vector<Token> tokenize(const std::string &str) {
     return tokens;
 }
 
-std::string get_token_type(TokenType type) {
-    switch (type) {
-    case TokenType::NUMBER:
-        return "NUMBER";
-    case TokenType::PLUS:
-        return "PLUS";
-    case TokenType::MINUS:
-        return "MINUS";
+std::optional<char> Tokenizer::peek(std::size_t offset) {
+    if (m_index + offset < m_len) {
+        return m_str.at(m_index + offset);
+    } else {
+        return std::nullopt;
     }
-    return "UNKNOWN";
+}
+
+char Tokenizer::consume() {
+    return m_str.at(m_index++);
 }

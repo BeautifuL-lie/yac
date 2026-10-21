@@ -9,17 +9,17 @@
 
 int main() {
     std::cout << "~~~ Yet another calculator ~~~\n";
-    std::cout << "type '/exit' to quit\n";
+    std::cout << "type 'exit' to quit\n";
 
     while (true) {
-        std::cout << "> ";
+        std::cout << ">> " << std::flush;
 
         std::string str;
         if (!std::getline(std::cin, str)) {
             break;
         }
 
-        if (str == "/exit") {
+        if (str == "exit" || str == "exi" || str == "ex" || str == "e") {
             break;
         }
 

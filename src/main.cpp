@@ -31,7 +31,8 @@ int main() {
             continue;
         }
 
-        auto result = parser(tokens);
+        Parser parser(tokens);
+        auto result = parser.parse();
         if (result == nullptr) {
             std::cout << "Invalid expression!\n";
             continue;

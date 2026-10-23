@@ -9,7 +9,7 @@
 
 int main() {
     std::cout << "~~~ Yet another calculator ~~~\n";
-    std::cout << "type 'exit' to quit\n";
+    std::cout << "type 'quit' to exit\n";
 
     while (true) {
         std::cout << ">> " << std::flush;
@@ -19,7 +19,7 @@ int main() {
             break;
         }
 
-        if (str == "exit" || str == "exi" || str == "ex" || str == "e") {
+        if (str == "quit" || str == "qui" || str == "qu" || str == "q") {
             break;
         }
 

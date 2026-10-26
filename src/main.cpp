@@ -4,6 +4,7 @@
 #include "../include/types.hpp"
 
 #include <iostream>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -38,7 +39,11 @@ int main() {
             continue;
         }
 
-        std::cout << "Result is " << result->evaluate() << '\n';
+        try {
+            std::cout << "Result is " << result->evaluate() << '\n';
+        } catch (const std::runtime_error &e) {
+            std::cout << e.what() << '\n';
+        }
     }
 
     return 0;

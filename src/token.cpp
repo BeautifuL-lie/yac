@@ -21,6 +21,12 @@ std::vector<Token> Tokenizer::tokenize() {
         } else if (c == '-') {
             tokens.push_back({TokenType::MINUS});
             consume();
+        } else if (c == '*') {
+            tokens.push_back({TokenType::STAR});
+            consume();
+        } else if (c == '/') {
+            tokens.push_back({TokenType::SLASH});
+            consume();
         } else if (std::isdigit(c)) {
             std::string buf;
             while (peek().has_value() && std::isdigit(peek().value())) {

@@ -3,7 +3,9 @@
 enum class TokenType {
     NUMBER,
     PLUS,
-    MINUS
+    MINUS,
+    STAR,
+    SLASH
 };
 
 struct Token {

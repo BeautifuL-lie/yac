@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <stdexcept>
 #include <utility>
 
 class Node {
@@ -29,10 +30,22 @@ class OperatorNode : public Node {
 
   public:
     int evaluate() const override {
-        if (m_operator == '+') {
+        switch (m_operator) {
+        case '+':
             return m_left->evaluate() + m_right->evaluate();
-        } else {
+        case '-':
             return m_left->evaluate() - m_right->evaluate();
+        case '*':
+            return m_left->evaluate() * m_right->evaluate();
+        case '/': {
+            const int right = m_right->evaluate();
+            if (right == 0) {
+                throw std::runtime_error("[ERROR: Can't divide by zero!]");
+            }
+            return m_left->evaluate() / right;
+        }
+        default:
+            throw std::runtime_error("[ERROR: Invalid Operator!]");
         }
     }
 

@@ -24,7 +24,7 @@ std::unique_ptr<Node> Parser::parse() {
 }
 
 std::unique_ptr<Node> Parser::parse_expression() {
-    auto left = parse_factor();
+    auto left = parse_term();
     if (!left) {
         return nullptr;
     }
@@ -33,6 +33,33 @@ std::unique_ptr<Node> Parser::parse_expression() {
         const TokenType type = get_token_type();
         if (type == TokenType::PLUS || type == TokenType::MINUS) {
             char op = (type == TokenType::PLUS) ? '+' : '-';
+            consume();
+
+            auto right = parse_term();
+            if (!right) {
+                return nullptr;
+            }
+
+            left = std::make_unique<OperatorNode>(op, std::move(left),
+                                                  std::move(right));
+        } else {
+            break;
+        }
+    }
+
+    return left;
+}
+
+std::unique_ptr<Node> Parser::parse_term() {
+    auto left = parse_factor();
+    if (!left) {
+        return nullptr;
+    }
+
+    while (peek().has_value()) {
+        const TokenType type = get_token_type();
+        if (type == TokenType::STAR || type == TokenType::SLASH) {
+            char op = (type == TokenType::STAR) ? '*' : '/';
             consume();
 
             auto right = parse_factor();

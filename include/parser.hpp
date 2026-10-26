@@ -24,4 +24,5 @@ class Parser {
     int get_token_value();
     std::unique_ptr<Node> parse_factor();
     std::unique_ptr<Node> parse_expression();
+    std::unique_ptr<Node> parse_term();
 };

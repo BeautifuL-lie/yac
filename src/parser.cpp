@@ -95,6 +95,19 @@ std::unique_ptr<Node> Parser::parse_factor() {
         int value = -get_token_value();
         consume();
         return std::make_unique<NumberNode>(value);
+    } else if (type == TokenType::LPAR) {
+        consume();
+
+        auto node = parse_expression();
+        if (!node) {
+            return nullptr;
+        }
+
+        if (!peek().has_value() || get_token_type() != TokenType::RPAR) {
+            return nullptr;
+        }
+        consume();
+        return node;
     }
 
     return nullptr;

@@ -27,6 +27,12 @@ std::vector<Token> Tokenizer::tokenize() {
         } else if (c == '/') {
             tokens.push_back({TokenType::SLASH});
             consume();
+        } else if (c == '(') {
+            tokens.push_back({TokenType::LPAR});
+            consume();
+        } else if (c == ')') {
+            tokens.push_back({TokenType::RPAR});
+            consume();
         } else if (std::isdigit(c)) {
             std::string buf;
             while (peek().has_value() && std::isdigit(peek().value())) {

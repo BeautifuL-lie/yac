@@ -8,10 +8,17 @@
 #include <string>
 #include <vector>
 
-int main() {
+void print_title() {
     std::cout << "~~~ Yet another calculator ~~~\n";
-    std::cout << "type 'quit' to exit\n";
+    std::cout << "cmd: 'quit' 'clear'\n";
+}
 
+void clear_screen() {
+    std::cout << "\033[2J\033[1;1H";
+}
+
+int main() {
+    print_title();
     while (true) {
         std::cout << ">> " << std::flush;
 
@@ -22,6 +29,13 @@ int main() {
 
         if (str == "quit" || str == "qui" || str == "qu" || str == "q") {
             break;
+        }
+
+        if (str == "clear" || str == "clea" || str == "cle" || str == "cl" ||
+            str == "c") {
+            clear_screen();
+            print_title();
+            continue;
         }
 
         Tokenizer tokenizer(str);

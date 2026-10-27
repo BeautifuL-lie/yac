@@ -3,6 +3,7 @@
 #include "../include/token.hpp"
 #include "../include/types.hpp"
 
+#include <cstdlib>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -60,5 +61,5 @@ int main() {
         }
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
